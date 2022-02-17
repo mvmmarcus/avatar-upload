@@ -17,8 +17,14 @@ export default {
     },
   },
   colors: {
-    primary: "#F231A5",
-    secondary: "#3CD3C1",
+    gray01: "#F2F5F8",
+    gray04: "#C3CBD5",
+    gray05: "#677489",
+    gray06: "#495567",
+    gray07: "#3D485F",
+
+    blue01: "#3F80FF",
+    blue04: "#B9D1FF",
   },
   spacings: {
     xxsmall: "0.8rem",
