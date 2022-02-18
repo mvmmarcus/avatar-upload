@@ -1,12 +1,12 @@
 export default {
   border: {
-    radius: "0.4rem",
+    radius: "0.8rem",
+    dashed: "0.2rem dashed #C7CDD3",
   },
   font: {
     family: "Inter, sans-serif",
-    light: 300,
     normal: 400,
-    bold: 600,
+    medium: 500,
     sizes: {
       xsmall: "1.2rem",
       small: "1.4rem",

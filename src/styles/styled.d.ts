@@ -4,12 +4,12 @@ declare module "styled-components" {
   export interface DefaultTheme {
     border: {
       radius: string;
+      dashed: string;
     };
     font: {
       family: string;
-      light: number;
       normal: number;
-      bold: number;
+      medium: number;
       sizes: {
         xsmall: string;
         small: string;
