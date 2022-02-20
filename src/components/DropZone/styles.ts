@@ -42,7 +42,7 @@ export const TitleIcon = styled.img`
   `}
 `;
 
-export const Title = styled.p`
+export const Title = styled.h3`
   ${({ theme }) => css`
     line-height: 2.5rem;
     font-size: ${theme.font.sizes.small};

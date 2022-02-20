@@ -1,6 +1,5 @@
 import React from "react";
 
-import Avatar from "components/Avatar";
 import Button from "components/Button";
 import Slider from "components/Slider";
 
@@ -46,7 +45,6 @@ const DropZone = ({
   if (errorMessage) {
     return (
       <Content hasAvatar>
-        {!!avatarUrl && <Avatar urlImg={avatarUrl as string} />}
         <ErrorMessage>{errorMessage}</ErrorMessage>
         <Button variant="link" onClick={handleTryAgain}>
           Try again
@@ -64,7 +62,7 @@ const DropZone = ({
       ) : (
         <Content
           hasAvatar={!!avatarUrl}
-          isSuccess={!errorMessage && !isCropping}
+          isSuccess={!!avatarUrl && !errorMessage && !isCropping}
         >
           <Header>
             <TitleIcon src="/img/media.svg" alt="media icon" />
