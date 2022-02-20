@@ -1,0 +1,166 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Avatar /> should render avatar with diferent scale 1`] = `
+.c0 {
+  width: 8.4rem;
+  height: 8.4rem;
+  min-height: 8.4rem;
+  min-width: 8.4rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 7.25rem;
+  overflow: hidden;
+  margin: auto;
+  position: relative;
+  pointer-events: none;
+  background-color: #C3CBD5;
+}
+
+.c1 {
+  width: 100%;
+  -webkit-transition: -webkit-transform 0.3s ease-in-out;
+  -webkit-transition: transform 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out;
+  -webkit-transform: scale(1.5);
+  -ms-transform: scale(1.5);
+  transform: scale(1.5);
+}
+
+@media (min-width:450px) {
+  .c0 {
+    width: 11.4rem;
+    height: 11.4rem;
+    min-height: 11.4rem;
+    min-width: 11.4rem;
+  }
+}
+
+<figure
+  class="c0"
+>
+  <img
+    alt="avatar image"
+    class="c1"
+    scale="1.5"
+    src="https://images.unsplash.com/photo-1645300188328-6708bd739a81?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=688&q=80"
+  />
+</figure>
+`;
+
+exports[`<Avatar /> should render avatar with error 1`] = `
+.c0 {
+  width: 8.4rem;
+  height: 8.4rem;
+  min-height: 8.4rem;
+  min-width: 8.4rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 7.25rem;
+  overflow: hidden;
+  margin: auto;
+  position: relative;
+  pointer-events: none;
+  background-color: #C3CBD5;
+}
+
+.c1 {
+  width: auto;
+  -webkit-transition: -webkit-transform 0.3s ease-in-out;
+  -webkit-transition: transform 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out;
+}
+
+@media (min-width:450px) {
+  .c0 {
+    width: 11.4rem;
+    height: 11.4rem;
+    min-height: 11.4rem;
+    min-width: 11.4rem;
+  }
+}
+
+<figure
+  class="c0"
+>
+  <img
+    alt="avatar image"
+    class="c1"
+    scale="1"
+    src="/img/error.svg"
+  />
+</figure>
+`;
+
+exports[`<Avatar /> should render avatar with specific url 1`] = `
+.c0 {
+  width: 8.4rem;
+  height: 8.4rem;
+  min-height: 8.4rem;
+  min-width: 8.4rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 7.25rem;
+  overflow: hidden;
+  margin: auto;
+  position: relative;
+  pointer-events: none;
+  background-color: #C3CBD5;
+}
+
+.c1 {
+  width: 100%;
+  -webkit-transition: -webkit-transform 0.3s ease-in-out;
+  -webkit-transition: transform 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out;
+}
+
+@media (min-width:450px) {
+  .c0 {
+    width: 11.4rem;
+    height: 11.4rem;
+    min-height: 11.4rem;
+    min-width: 11.4rem;
+  }
+}
+
+<figure
+  class="c0"
+>
+  <img
+    alt="avatar image"
+    class="c1"
+    scale="1"
+    src="https://images.unsplash.com/photo-1645300188328-6708bd739a81?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=688&q=80"
+  />
+</figure>
+`;
