@@ -1,3 +1,5 @@
+import React from "react";
+
 import { AvatarImg, Wrapper } from "./styles";
 
 type AvatarProps = {

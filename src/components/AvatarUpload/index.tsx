@@ -1,4 +1,4 @@
-import {
+import React, {
   DragEventHandler,
   useCallback,
   useMemo,
@@ -88,21 +88,24 @@ const AvatarUpload = ({ onSave }: AvatarUploadProps) => {
 
   const handleFinishCrop = useCallback(
     async (avatarUrl: string) => {
-      const previewImageWidth = avatarRef!.current!.width;
-      const previewImageResisedWidth = previewImageWidth * avatarScale;
-      const cropedPreviewImageRatio =
-        previewImageWidth / previewImageResisedWidth;
+      if (avatarRef?.current) {
+        const previewImageWidth = avatarRef.current?.width;
 
-      const croppedImageUrl = await cropImage({
-        imageUrl: avatarUrl as string,
-        previewImageRatio: cropedPreviewImageRatio,
-        preserveAspectRatio: false,
-      });
+        const previewImageResisedWidth = previewImageWidth * avatarScale;
+        const cropedPreviewImageRatio =
+          previewImageWidth / previewImageResisedWidth;
 
-      !!onSave && onSave(croppedImageUrl);
+        const croppedImageUrl = await cropImage({
+          imageUrl: avatarUrl as string,
+          previewImageRatio: cropedPreviewImageRatio,
+          preserveAspectRatio: false,
+        });
 
-      setAvatarUrl(croppedImageUrl);
-      setCurrentState("success");
+        !!onSave && onSave(croppedImageUrl);
+
+        setAvatarUrl(croppedImageUrl);
+        setCurrentState("success");
+      }
     },
     [avatarScale, onSave]
   );

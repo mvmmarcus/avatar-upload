@@ -1,3 +1,5 @@
+import React from "react";
+
 import Avatar from "components/Avatar";
 import Button from "components/Button";
 import Slider from "components/Slider";

@@ -9,7 +9,7 @@ const addImageProcess = async (
   imageSource: string
 ): Promise<HTMLImageElement> => {
   return new Promise((resolve, reject) => {
-    let img = new Image();
+    const img = new Image();
     img.onload = () => resolve(img);
     img.onerror = reject;
     img.src = imageSource;
@@ -33,7 +33,7 @@ export const cropImage = async ({
     canvas.width = image.width < cropWidth ? image.width : cropWidth;
     canvas.height = image.width < cropWidth ? image.height : cropWidth * ratio;
 
-    context!.drawImage(image, 0, 0, canvas.width, canvas.height);
+    context?.drawImage(image, 0, 0, canvas.width, canvas.height);
   } else {
     canvas.width = previewImageRatio * image.width;
     canvas.height = canvas.width;
@@ -41,7 +41,7 @@ export const cropImage = async ({
     const cropDistanceX = (image.width - canvas.width) / 2;
     const cropDistanceY = (image.height - canvas.height) / 2;
 
-    context!.drawImage(
+    context?.drawImage(
       image,
       cropDistanceX,
       cropDistanceY,

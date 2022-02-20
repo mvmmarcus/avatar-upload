@@ -1,3 +1,5 @@
+import React from "react";
+
 import { ThemeProvider } from "styled-components";
 
 import AvatarUpload from "components/AvatarUpload";
