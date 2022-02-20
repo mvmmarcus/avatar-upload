@@ -1,13 +1,24 @@
-import styled, { css } from "styled-components";
+import styled, { css, DefaultTheme } from "styled-components";
 import media from "styled-media-query";
 
-export const Wrapper = styled.div`
-  ${({ theme }) => css`
+type WrapperProps = {
+  isDraggable?: boolean;
+  isDragOver?: boolean;
+};
+
+const wrapperModifiers = {
+  isDragOver: (theme: DefaultTheme) => css`
+    border: ${theme.border.activeDashed};
+  `,
+};
+
+export const Wrapper = styled.div<WrapperProps>`
+  ${({ theme, isDraggable = false, isDragOver = false }) => css`
     width: 100%;
     display: flex;
     max-width: 55.3rem;
     height: 17.7rem;
-    border: ${theme.border.dashed};
+    border: ${isDraggable ? theme.border.dashed : "none"};
     border-radius: ${theme.border.radius};
     background-color: ${theme.colors.gray01};
     padding: ${theme.spacings.xsmall};
@@ -15,6 +26,8 @@ export const Wrapper = styled.div`
     ${media.greaterThan("small")`
       padding: ${theme.spacings.medium};
     `}
+
+    ${isDragOver && wrapperModifiers.isDragOver(theme)}
   `}
 `;
 
@@ -22,4 +35,10 @@ export const CancelButton = styled.img`
   width: 1.25rem;
   height: 1.25rem;
   cursor: pointer;
+`;
+
+export const FileInput = styled.input`
+  visibility: hidden;
+  width: 0;
+  height: 0 y;
 `;

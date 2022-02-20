@@ -8,10 +8,11 @@ type ButtonTypes =
 
 export type ButtonPros = {
   as?: React.ElementType;
+  variant?: "link" | "default";
 } & ButtonTypes;
 
 const Button = ({ children, ...props }: ButtonPros) => (
-  <Wrapper {...props}>{!!children && <span>{children}</span>}</Wrapper>
+  <Wrapper {...props}>{children}</Wrapper>
 );
 
 export default Button;

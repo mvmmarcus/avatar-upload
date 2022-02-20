@@ -5,6 +5,7 @@ declare module "styled-components" {
     border: {
       radius: string;
       dashed: string;
+      activeDashed: string;
     };
     font: {
       family: string;
@@ -27,6 +28,7 @@ declare module "styled-components" {
       gray07: string;
       blue01: string;
       blue04: string;
+      red: string;
     };
     spacings: {
       xxsmall: string;

@@ -6,108 +6,100 @@ import {
   useState,
 } from "react";
 
-import DropZone from "components/DropZone";
-
-import { CancelButton, Wrapper } from "./styles";
 import Avatar from "components/Avatar";
+import DropZone from "components/DropZone";
+import { cropImage, uploadImage } from "utils/image";
+
+import { CancelButton, FileInput, Wrapper } from "./styles";
 
 type States = "initial" | "cropping" | "success" | "error";
 
 const AvatarUpload = () => {
   const avatarRef = useRef<HTMLImageElement | null>(null);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [avatarScale, setAvatarScale] = useState<number>(1);
   const [avatarUrl, setAvatarUrl] = useState<string | ArrayBuffer | null>(null);
   const [currentState, setCurrentState] = useState<States>("initial");
   const [errorMessage, setErrorMessage] = useState<string>("");
+  const [isDragOver, setIsDragOver] = useState<boolean>(false);
 
+  const isDraggable = currentState === "initial" || currentState === "success";
   const showCancelButton =
-    currentState === "success" || currentState === "error";
+    currentState === "cropping" || currentState === "error";
 
   const onDragOver: DragEventHandler<HTMLDivElement> = useCallback((event) => {
     event.preventDefault();
+    setIsDragOver(true);
+  }, []);
+
+  const onDragLeave: DragEventHandler<HTMLDivElement> = useCallback((event) => {
+    event.preventDefault();
+    setIsDragOver(false);
+  }, []);
+
+  const handleUploadFile = useCallback(async (file: File) => {
+    const validImageExtensions = ["image/jpeg", "image/jpg", "image/png"];
+
+    if (validImageExtensions.includes(file.type)) {
+      try {
+        const uploadEvent = await uploadImage(file);
+        const previewImageUrl = await cropImage({
+          imageUrl: uploadEvent.target?.result as string,
+        });
+        setAvatarUrl(previewImageUrl);
+        setErrorMessage("");
+        setCurrentState("cropping");
+      } catch (error) {
+        setAvatarUrl("/img/error.svg");
+        setErrorMessage("Sorry, the upload failed.");
+        setCurrentState("error");
+      }
+    } else {
+      setAvatarUrl("/img/error.svg");
+      setErrorMessage("Sorry, this file extension is not supported.");
+      setCurrentState("error");
+    }
   }, []);
 
   const onDropImage: DragEventHandler<HTMLDivElement> = useCallback(
-    (event) => {
+    async (event) => {
       event.preventDefault();
+      setIsDragOver(false);
       const draggableStates = ["initial", "success"];
 
       if (event?.dataTransfer && draggableStates.includes(currentState)) {
         const file = event.dataTransfer.files[0];
-        const validExtensions = ["image/jpeg", "image/jpg", "image/png"];
 
-        if (validExtensions.includes(file.type)) {
-          const fileReader = new FileReader();
-
-          fileReader.onload = function (event) {
-            const image = new Image();
-            image.src = event?.target?.result as string;
-
-            image.onload = function () {
-              const defaultAvatarWidth = 114;
-              const ratio = image.height / image.width;
-
-              const canvas = document.createElement("canvas");
-              canvas.width = defaultAvatarWidth;
-              canvas.height = defaultAvatarWidth * ratio;
-              const context = canvas.getContext("2d");
-
-              context!.imageSmoothingQuality = "high";
-              context!.drawImage(image, 0, 0, canvas.width, canvas.height);
-
-              setAvatarUrl(canvas.toDataURL());
-              setErrorMessage("");
-              setCurrentState("cropping");
-            };
-          };
-
-          fileReader.onerror = () => {
-            setAvatarUrl("/img/error.svg");
-            setErrorMessage("Sorry, the upload failed.");
-            setCurrentState("error");
-            console.log("Sorry, the upload failed.");
-          };
-
-          fileReader.readAsDataURL(file);
-        } else {
-          setAvatarUrl("/img/error.svg");
-          setErrorMessage("Sorry, this file extension is not suported.");
-          setCurrentState("error");
-          console.log("file extension is not suported");
-        }
+        await handleUploadFile(file);
       }
     },
-    [currentState]
+    [handleUploadFile, currentState]
   );
 
-  const handleResetState = () => {
+  const handleCancel = () => {
     setErrorMessage("");
     setAvatarUrl("");
     setCurrentState("initial");
   };
 
-  const handleFinishCrop = useCallback(() => {
-    const image = new Image();
-    image.src = avatarUrl as string;
+  const handleFinishCrop = useCallback(
+    async (avatarUrl: string) => {
+      const previewImageWidth = avatarRef!.current!.width;
+      const previewImageResisedWidth = previewImageWidth * avatarScale;
+      const cropedPreviewImageRatio =
+        previewImageWidth / previewImageResisedWidth;
 
-    image.onload = function () {
-      if (avatarRef.current) {
-        const resizedWidth = avatarRef?.current?.width * avatarScale;
-        const resizedHeight = avatarRef?.current?.height * avatarScale;
+      const croppedImageUrl = await cropImage({
+        imageUrl: avatarUrl as string,
+        previewImageRatio: cropedPreviewImageRatio,
+        preserveAspectRatio: false,
+      });
 
-        const canvas = document.createElement("canvas");
-        const context = canvas.getContext("2d");
-        canvas.width = resizedWidth;
-        canvas.height = resizedHeight;
-
-        context!.imageSmoothingQuality = "high";
-        context!.drawImage(image, 0, 0, canvas.width, canvas.height);
-
-        setAvatarUrl(canvas.toDataURL());
-        setCurrentState("success");
-      }
-    };
-  }, [avatarUrl, avatarScale]);
+      setAvatarUrl(croppedImageUrl);
+      setCurrentState("success");
+    },
+    [avatarScale]
+  );
 
   const renderState = useMemo(() => {
     const states = {
@@ -116,31 +108,61 @@ const AvatarUpload = () => {
         <DropZone
           isCropping
           avatarUrl={avatarUrl}
-          onFinishCrop={handleFinishCrop}
+          onFinishCrop={() => handleFinishCrop(avatarUrl as string)}
           onScaleChange={setAvatarScale}
         />
       ),
       success: <DropZone avatarUrl={avatarUrl} />,
-      error: <DropZone errorMessage={errorMessage} />,
+      error: <DropZone errorMessage={errorMessage} onTryAgain={handleCancel} />,
     };
 
     return states[currentState];
   }, [currentState, avatarUrl, errorMessage, handleFinishCrop]);
 
+  const handleBrowseFile = (
+    fileInputRef: React.MutableRefObject<HTMLInputElement | null>
+  ) => {
+    if (fileInputRef?.current) {
+      fileInputRef.current.click();
+    }
+  };
+
+  const handleChangeFile = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    event.preventDefault();
+
+    if (event?.target?.files) {
+      const file = event.target?.files[0];
+      await handleUploadFile(file);
+    }
+  };
+
   return (
-    <Wrapper onDragOver={onDragOver} onDrop={onDropImage}>
+    <Wrapper
+      onDragOver={onDragOver}
+      onDrop={onDropImage}
+      onDragLeave={onDragLeave}
+      isDraggable={isDraggable}
+      isDragOver={isDragOver && isDraggable}
+      onClick={() => isDraggable && handleBrowseFile(fileInputRef)}
+    >
+      {isDraggable && (
+        <FileInput type="file" ref={fileInputRef} onChange={handleChangeFile} />
+      )}
       {!!avatarUrl && (
         <Avatar
           avatarRef={avatarRef}
           isCropping={currentState === "cropping"}
           scale={avatarScale}
           urlImg={avatarUrl as string}
+          hasError={!!errorMessage}
         />
       )}
       {renderState}
       {showCancelButton && (
         <CancelButton
-          onClick={() => handleResetState()}
+          onClick={() => handleCancel()}
           src="/img/close.svg"
           alt="cancel button"
         />

@@ -2,6 +2,7 @@ export default {
   border: {
     radius: "0.8rem",
     dashed: "0.2rem dashed #C7CDD3",
+    activeDashed: "0.2rem dashed #3F80FF",
   },
   font: {
     family: "Inter, sans-serif",
@@ -25,6 +26,8 @@ export default {
 
     blue01: "#3F80FF",
     blue04: "#B9D1FF",
+
+    red: "#C64D32",
   },
   spacings: {
     xxsmall: "0.8rem",

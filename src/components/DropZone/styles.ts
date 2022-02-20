@@ -1,31 +1,38 @@
 import styled, { css, DefaultTheme } from "styled-components";
+import media from "styled-media-query";
 
 type ContentProps = {
   hasAvatar: boolean;
+  isSuccess?: boolean;
 };
 
 const contentModifiers = {
-  hasAvatar: (theme: DefaultTheme) => css`
-    align-items: flex-start;
-    margin-left: ${theme.spacings.medium};
+  hasAvatar: (theme: DefaultTheme, isSuccess?: boolean) => css`
+    align-items: ${isSuccess ? "center" : "flex-start"};
+    margin-left: ${theme.spacings.xsmall};
+
+    ${media.greaterThan("small")`
+      margin-left: ${theme.spacings.medium};
+    `}
   `,
 };
 
 export const Content = styled.div<ContentProps>`
-  ${({ theme, hasAvatar }) => css`
+  ${({ theme, hasAvatar, isSuccess = false }) => css`
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 
-    ${hasAvatar && contentModifiers.hasAvatar(theme)}
+    ${hasAvatar && contentModifiers.hasAvatar(theme, isSuccess)}
   `}
 `;
 
 export const Header = styled.header`
   display: flex;
   align-items: center;
+  pointer-events: none;
   pointer-events: none;
 `;
 
@@ -55,4 +62,12 @@ export const Subtitle = styled.p`
   `}
 `;
 
-export const ErrorMessage = styled.p``;
+export const ErrorMessage = styled.p`
+  ${({ theme }) => css`
+    pointer-events: none;
+    line-height: ${theme.font.sizes.xxlarge};
+    font-size: ${theme.font.sizes.medium};
+    font-weight: ${theme.font.normal};
+    color: ${theme.colors.red};
+  `}
+`;
