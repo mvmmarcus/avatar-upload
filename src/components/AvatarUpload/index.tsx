@@ -14,7 +14,11 @@ import { CancelButton, FileInput, Wrapper } from "./styles";
 
 type States = "initial" | "cropping" | "success" | "error";
 
-const AvatarUpload = () => {
+type AvatarUploadProps = {
+  onSave?: (base64UrlImage: string) => void;
+};
+
+const AvatarUpload = ({ onSave }: AvatarUploadProps) => {
   const avatarRef = useRef<HTMLImageElement | null>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [avatarScale, setAvatarScale] = useState<number>(1);
@@ -95,10 +99,12 @@ const AvatarUpload = () => {
         preserveAspectRatio: false,
       });
 
+      !!onSave && onSave(croppedImageUrl);
+
       setAvatarUrl(croppedImageUrl);
       setCurrentState("success");
     },
-    [avatarScale]
+    [avatarScale, onSave]
   );
 
   const renderState = useMemo(() => {

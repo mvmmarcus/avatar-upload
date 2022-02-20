@@ -11,7 +11,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <GlobalStyles />
       <Main>
-        <AvatarUpload />
+        <AvatarUpload onSave={(base64Url) => console.log({ base64Url })} />
       </Main>
     </ThemeProvider>
   );
