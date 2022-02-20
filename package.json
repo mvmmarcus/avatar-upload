@@ -25,12 +25,14 @@
     "eject": "react-scripts eject",
     "lint": "eslint src --max-warnings=0",
     "test": "jest",
+    "test:watch": "yarn test --watch",
     "postinstall": "husky install",
     "prepare": "husky install"
   },
   "lint-staged": {
     "src/**/*": [
-      "yarn lint --fix"
+      "yarn lint --fix",
+      "yarn test --findRelatedTests --bail"
     ]
   },
   "eslintConfig": {
@@ -62,6 +64,7 @@
     "eslint-plugin-react-hooks": "^4.3.0",
     "husky": "^7.0.0",
     "jest": "^27.5.1",
+    "jest-styled-components": "^7.0.8",
     "lint-staged": "^12.3.4",
     "prettier": "2.5.1"
   }
