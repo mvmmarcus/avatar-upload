@@ -30,6 +30,7 @@ const Slider = ({ onValueChange, onSave }: SliderProps) => {
           step=".1"
           value={value}
           onChange={handleChange}
+          data-testid="slider-input"
         />
       </SliderGroup>
       <Button onClick={() => handleSave(value)}>Save</Button>
