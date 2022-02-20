@@ -1,11 +1,19 @@
 module.exports = {
+  preset: "ts-jest",
   testEnvironment: "jsdom",
   testPathIgnorePatterns: ["/node_modules/", "/build/"],
   collectCoverage: true,
-  collectCoverageFrom: ["src/**/*.ts(x)?"],
+  collectCoverageFrom: [
+    "src/**/*.ts(x)?",
+    "!src/styles/**/*.ts",
+    "!src/*.d.ts",
+    "!src/App.tsx",
+    "!src/index.tsx",
+  ],
   setupFilesAfterEnv: ["<rootDir>/.jest/setup.ts"],
   modulePaths: ["<rootDir>/src/"],
   transform: {
-    "^.+\\.(js|jsx|ts|tsx)$": ["babel-jest"],
+    "^.+\\.tsx?$": "ts-jest",
   },
+  transformIgnorePatterns: ["node_modules/(?!variables/.*)"],
 };
