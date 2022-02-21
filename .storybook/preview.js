@@ -2,6 +2,10 @@ import GlobalStyles from "styles/global";
 import theme from "styles/theme";
 import { ThemeProvider } from "styled-components";
 
+export const parameters = {
+  layout: "centered",
+};
+
 export const decorators = [
   (Story) => (
     <ThemeProvider theme={theme}>

@@ -59,12 +59,12 @@ const AvatarUpload = ({ onSave }: AvatarUploadProps) => {
         setErrorMessage("");
         setCurrentState("cropping");
       } catch (error) {
-        setAvatarUrl("/img/error.svg");
+        setAvatarUrl("");
         setErrorMessage("Sorry, the upload failed.");
         setCurrentState("error");
       }
     } else {
-      setAvatarUrl("/img/error.svg");
+      setAvatarUrl("");
       setErrorMessage("Sorry, this file extension is not supported.");
       setCurrentState("error");
     }
@@ -165,12 +165,11 @@ const AvatarUpload = ({ onSave }: AvatarUploadProps) => {
           }
         />
       )}
-      {!!avatarUrl && (
+      {(!!avatarUrl || !!errorMessage) && (
         <Avatar
           isCropping={currentState === "cropping"}
           scale={avatarScale}
           urlImg={avatarUrl as string}
-          hasError={!!errorMessage}
         />
       )}
       {renderState}

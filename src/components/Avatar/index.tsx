@@ -2,26 +2,20 @@ import React from "react";
 
 import { AvatarImg, Wrapper } from "./styles";
 
-type AvatarProps = {
+export type AvatarProps = {
   isCropping?: boolean;
   urlImg?: string;
   scale?: number;
-  hasError?: boolean;
 };
 
-const Avatar = ({
-  urlImg,
-  scale = 1,
-  isCropping = false,
-  hasError = false,
-}: AvatarProps) => {
+const Avatar = ({ urlImg, scale = 1, isCropping = false }: AvatarProps) => {
   return (
     <Wrapper>
       <AvatarImg
-        hasError={hasError}
+        hasError={!urlImg}
         isCropping={isCropping}
         scale={scale}
-        src={urlImg}
+        src={urlImg || "/img/error.svg"}
         alt="avatar image"
       />
     </Wrapper>

@@ -33,9 +33,7 @@ describe("<Avatar />", () => {
   });
 
   it("should render avatar with error", () => {
-    const { container } = renderWithTheme(
-      <Avatar urlImg="/img/error.svg" hasError />
-    );
+    const { container } = renderWithTheme(<Avatar urlImg="" />);
 
     expect(screen.getByRole("img", { name: /avatar image/i })).toHaveStyle(
       "width: auto"
