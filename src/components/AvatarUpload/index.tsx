@@ -14,7 +14,7 @@ import { CancelButton, FileInput, Wrapper } from "./styles";
 
 type States = "initial" | "cropping" | "success" | "error";
 
-type AvatarUploadProps = {
+export type AvatarUploadProps = {
   onSave?: (base64UrlImage: string) => void;
 };
 

@@ -7,6 +7,9 @@ import DropZone, { DropZoneProps } from ".";
 export default {
   title: "DropZone",
   component: DropZone,
+  parameters: {
+    layout: "centered",
+  },
   argTypes: {
     avatarUrl: {
       control: { disable: true },

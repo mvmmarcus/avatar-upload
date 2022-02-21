@@ -3,7 +3,7 @@ import theme from "styles/theme";
 import { ThemeProvider } from "styled-components";
 
 export const parameters = {
-  layout: "centered",
+  layout: "padded",
 };
 
 export const decorators = [
