@@ -4,7 +4,7 @@ import { screen } from "@testing-library/react";
 
 import Button from ".";
 import theme from "styles/theme";
-import { renderWithTheme } from "utils/test/test-utils";
+import { renderWithTheme } from "utils/test-utils";
 
 describe("<Button />", () => {
   it("should render default button", () => {

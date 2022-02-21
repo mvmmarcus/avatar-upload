@@ -3,7 +3,7 @@ import React from "react";
 import { screen } from "@testing-library/react";
 
 import Avatar from ".";
-import { renderWithTheme } from "utils/test/test-utils";
+import { renderWithTheme } from "utils/test-utils";
 
 describe("<Avatar />", () => {
   it("should render avatar with specific url", () => {

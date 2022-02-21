@@ -8,7 +8,7 @@ import React, {
 
 import Avatar from "components/Avatar";
 import DropZone from "components/DropZone";
-import { cropImage, uploadImage } from "utils/image/image";
+import { cropImage, uploadImage } from "utils/imageCrop";
 
 import { CancelButton, FileInput, Wrapper } from "./styles";
 
@@ -88,6 +88,7 @@ const AvatarUpload = ({ onSave }: AvatarUploadProps) => {
   const handleCancel = () => {
     setErrorMessage("");
     setAvatarUrl("");
+    setAvatarScale(1);
     setCurrentState("initial");
   };
 

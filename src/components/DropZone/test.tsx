@@ -3,7 +3,7 @@ import React from "react";
 import { fireEvent, screen } from "@testing-library/react";
 
 import DropZone from ".";
-import { renderWithTheme } from "utils/test/test-utils";
+import { renderWithTheme } from "utils/test-utils";
 
 describe("<Slider />", () => {
   it("should render DropZone as default", () => {

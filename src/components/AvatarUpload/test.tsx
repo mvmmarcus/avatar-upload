@@ -3,11 +3,10 @@ import React from "react";
 
 import { fireEvent, screen, waitFor } from "@testing-library/react";
 
+import * as imageUtils from "utils/imageCrop";
 import AvatarUpload from ".";
 import theme from "styles/theme";
-import { renderWithTheme } from "utils/test/test-utils";
-
-import * as imageUtils from "utils/image/image";
+import { renderWithTheme } from "utils/test-utils";
 
 describe("<AvatarUpload />", () => {
   jest.spyOn(imageUtils, "uploadImage").mockResolvedValue("image_url");
