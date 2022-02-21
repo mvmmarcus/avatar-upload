@@ -4,7 +4,7 @@ import Button from "components/Button";
 
 import { SliderGroup, SliderInput, Title, Wrapper } from "./styles";
 
-type SliderProps = {
+export type SliderProps = {
   onValueChange?: (value: number) => void;
   onSave?: (value: number) => void;
 };
