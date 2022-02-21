@@ -1,8 +1,8 @@
 import styled, { css, DefaultTheme } from "styled-components";
 
-import { ButtonPros } from ".";
+import { ButtonProps } from ".";
 
-type WrapperProps = ButtonPros;
+type WrapperProps = ButtonProps;
 
 const wrapperModifiers = {
   link: (theme: DefaultTheme) => css`

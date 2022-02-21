@@ -1,19 +1,16 @@
 import React from "react";
 
-import { AnchorHTMLAttributes, ButtonHTMLAttributes } from "react";
+import { ButtonHTMLAttributes } from "react";
 
 import { Wrapper } from "./styles";
 
-type ButtonTypes =
-  | AnchorHTMLAttributes<HTMLAnchorElement>
-  | ButtonHTMLAttributes<HTMLButtonElement>;
+type ButtonTypes = ButtonHTMLAttributes<HTMLButtonElement>;
 
-export type ButtonPros = {
-  as?: React.ElementType;
+export type ButtonProps = {
   variant?: "link" | "default";
 } & ButtonTypes;
 
-const Button = ({ children, ...props }: ButtonPros) => (
+const Button = ({ children, ...props }: ButtonProps) => (
   <Wrapper {...props}>{children}</Wrapper>
 );
 
