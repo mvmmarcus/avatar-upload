@@ -1,46 +1,110 @@
-# Getting Started with Create React App
+# AVATAR UPLOAD
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![Jest](https://img.shields.io/badge/code--coverage-100%25-green)
 
-## Available Scripts
+A Reactjs component to avatar image crop. Basically, the component has 4 states: Initial, Cropping, Success and Error.
 
-In the project directory, you can run:
+### [Demo](https://avatar-cropper-mv.vercel.app/)
 
-### `npm start`
+<br/>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+![](public/img/demo.gif)
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+<br/>
 
-### `npm test`
+## What is inside?
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+This project uses lot of stuff as:
 
-### `npm run build`
+<a href="https://pt-br.reactjs.org/" >![React](https://img.shields.io/badge/-React-05122A?style=flat&logo=react)</a>
+<a href="https://www.typescriptlang.org/" >![TypeScript](https://img.shields.io/badge/-Typescript-05122A?style=flat&logo=typescript)</a>
+<a href="https://styled-components.com/" >![Styled Components](https://img.shields.io/badge/-Styled%20Components-05122A?style=flat&logo=styled-components)</a>
+<a href="https://testing-library.com/docs/react-testing-library/intro" >![Testing Library](https://img.shields.io/badge/-Testing%20Library-05122A?style=flat&logo=testing-library)</a>
+<a href="https://storybook.js.org/" >![Storybook](https://img.shields.io/badge/-Storybook-05122A?style=flat&logo=storybook)</a>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+<br/>
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Getting Started
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+First, clone this repo
 
-### `npm run eject`
+```bash
+git clone git@github.com:mvmmarcus/avatar-upload.git
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Then, install all project dependencies
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```bash
+yarn install
+# or
+npm install
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Run the development server:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```bash
+yarn start
+# or
+npm start
+```
 
-## Learn More
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+<br/>
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Test the components in the storybook
+
+Run the command below to view all components variations
+
+```
+yarn storybook
+```
+
+Open [http://localhost:6006](http://localhost:6006) with your browser to see components
+
+### [Storybook](https://avatar-cropper-mv.vercel.app/)
+
+<br />
+
+![](public/img/storybook.gif)
+
+<br/>
+
+## All components are coveraged by tests
+
+Run the command below to execute all tests
+
+```
+yarn test
+```
+
+![](public/img/coverage_tests.jpg)
+
+<br/>
+
+## Commit messages protected by git hooks
+
+This project uses Husky's library to lint code and run tests
+
+<br/>
+
+## Commands
+
+- `start`: runs your application on `localhost:3000`
+- `build`: creates the production build version
+- `start`: starts a simple server with the build production code
+- `lint`: runs the linter in all components and pages
+- `test`: runs jest to test all components and pages
+- `test:watch`: runs jest in watch mode
+- `storybook`: runs storybook on `localhost:6006`
+- `build-storybook`: create the build version of storybook
+
+## 👨‍💻 Developer
+
+<table id="contribuicoes" >
+  <tr>
+    <td align="center"><a href="https://www.linkedin.com/in/mvmmarcus/"><img style="border-radius: 50%;" src="https://gitlab.com/uploads/-/system/user/avatar/6195744/avatar.png?width=400" width="100px;" alt=""/><br /><sub><b>Marcus Vinícius</b></sub></a><br /><a href="https://gitlab.com/mvmmarcus" title="Marcus Vinicius"></a></td>
+  </tr>
+</table>
+
+Developed with ❤️ by <a href="https://www.linkedin.com/in/mvmmarcus/">Marcus Vinícius</a>
