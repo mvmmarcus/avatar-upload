@@ -3,7 +3,7 @@ import React from "react";
 import { fireEvent, screen } from "@testing-library/react";
 
 import Slider from ".";
-import { renderWithTheme } from "utils/test-utils";
+import { renderWithTheme } from "utils/test/test-utils";
 
 describe("<Slider />", () => {
   it("should render slider as default", () => {

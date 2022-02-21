@@ -8,7 +8,7 @@ import React, {
 
 import Avatar from "components/Avatar";
 import DropZone from "components/DropZone";
-import { cropImage, uploadImage } from "utils/image";
+import { cropImage, uploadImage } from "utils/image/image";
 
 import { CancelButton, FileInput, Wrapper } from "./styles";
 
@@ -18,8 +18,12 @@ type AvatarUploadProps = {
   onSave?: (base64UrlImage: string) => void;
 };
 
+type HandleFinishCropProps = {
+  avatarUrl: string;
+  previewImageWidth: number;
+};
+
 const AvatarUpload = ({ onSave }: AvatarUploadProps) => {
-  const avatarRef = useRef<HTMLImageElement | null>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [avatarScale, setAvatarScale] = useState<number>(1);
   const [avatarUrl, setAvatarUrl] = useState<string | ArrayBuffer | null>(null);
@@ -46,10 +50,11 @@ const AvatarUpload = ({ onSave }: AvatarUploadProps) => {
 
     if (validImageExtensions.includes(file.type)) {
       try {
-        const uploadEvent = await uploadImage(file);
+        const uploadedImageUrl = await uploadImage(file);
         const previewImageUrl = await cropImage({
-          imageUrl: uploadEvent.target?.result as string,
+          imageUrl: uploadedImageUrl,
         });
+
         setAvatarUrl(previewImageUrl);
         setErrorMessage("");
         setCurrentState("cropping");
@@ -71,7 +76,7 @@ const AvatarUpload = ({ onSave }: AvatarUploadProps) => {
       setIsDragOver(false);
       const draggableStates = ["initial", "success"];
 
-      if (event?.dataTransfer && draggableStates.includes(currentState)) {
+      if (draggableStates.includes(currentState)) {
         const file = event.dataTransfer.files[0];
 
         await handleUploadFile(file);
@@ -87,25 +92,21 @@ const AvatarUpload = ({ onSave }: AvatarUploadProps) => {
   };
 
   const handleFinishCrop = useCallback(
-    async (avatarUrl: string) => {
-      if (avatarRef?.current) {
-        const previewImageWidth = avatarRef.current?.width;
+    async ({ avatarUrl, previewImageWidth }: HandleFinishCropProps) => {
+      const previewImageResisedWidth = previewImageWidth * avatarScale;
+      const cropedPreviewImageRatio =
+        previewImageWidth / previewImageResisedWidth;
 
-        const previewImageResisedWidth = previewImageWidth * avatarScale;
-        const cropedPreviewImageRatio =
-          previewImageWidth / previewImageResisedWidth;
+      const croppedImageUrl = await cropImage({
+        imageUrl: avatarUrl as string,
+        previewImageRatio: cropedPreviewImageRatio,
+        preserveAspectRatio: false,
+      });
 
-        const croppedImageUrl = await cropImage({
-          imageUrl: avatarUrl as string,
-          previewImageRatio: cropedPreviewImageRatio,
-          preserveAspectRatio: false,
-        });
+      !!onSave && onSave(croppedImageUrl);
 
-        !!onSave && onSave(croppedImageUrl);
-
-        setAvatarUrl(croppedImageUrl);
-        setCurrentState("success");
-      }
+      setAvatarUrl(croppedImageUrl);
+      setCurrentState("success");
     },
     [avatarScale, onSave]
   );
@@ -117,7 +118,12 @@ const AvatarUpload = ({ onSave }: AvatarUploadProps) => {
         <DropZone
           isCropping
           avatarUrl={avatarUrl}
-          onFinishCrop={() => handleFinishCrop(avatarUrl as string)}
+          onFinishCrop={() =>
+            handleFinishCrop({
+              avatarUrl: avatarUrl as string,
+              previewImageWidth: 114,
+            })
+          }
           onScaleChange={setAvatarScale}
         />
       ),
@@ -131,24 +137,16 @@ const AvatarUpload = ({ onSave }: AvatarUploadProps) => {
   const handleBrowseFile = (
     fileInputRef: React.MutableRefObject<HTMLInputElement | null>
   ) => {
-    if (fileInputRef?.current) {
-      fileInputRef.current.click();
-    }
+    !!fileInputRef.current && fileInputRef.current.click();
   };
 
-  const handleChangeFile = async (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    event.preventDefault();
-
-    if (event?.target?.files) {
-      const file = event.target?.files[0];
-      await handleUploadFile(file);
-    }
+  const handleChangeFile = async (files: FileList) => {
+    await handleUploadFile(files[0]);
   };
 
   return (
     <Wrapper
+      data-testid="drop-area"
       onDragOver={onDragOver}
       onDrop={onDropImage}
       onDragLeave={onDragLeave}
@@ -157,11 +155,17 @@ const AvatarUpload = ({ onSave }: AvatarUploadProps) => {
       onClick={() => isDraggable && handleBrowseFile(fileInputRef)}
     >
       {isDraggable && (
-        <FileInput type="file" ref={fileInputRef} onChange={handleChangeFile} />
+        <FileInput
+          data-testid="file-input"
+          type="file"
+          ref={fileInputRef}
+          onChange={(event) =>
+            event.target.files && handleChangeFile(event.target.files)
+          }
+        />
       )}
       {!!avatarUrl && (
         <Avatar
-          avatarRef={avatarRef}
           isCropping={currentState === "cropping"}
           scale={avatarScale}
           urlImg={avatarUrl as string}

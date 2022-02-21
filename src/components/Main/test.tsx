@@ -3,7 +3,7 @@ import React from "react";
 import { screen } from "@testing-library/react";
 
 import Main from ".";
-import { renderWithTheme } from "utils/test-utils";
+import { renderWithTheme } from "utils/test/test-utils";
 
 describe("<Main />", () => {
   it("should render main component", () => {

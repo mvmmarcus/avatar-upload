@@ -5,7 +5,7 @@ type CropImageProps = {
   previewImageRatio?: number;
 };
 
-const addImageProcess = async (
+export const addImageProcess = async (
   imageSource: string
 ): Promise<HTMLImageElement> => {
   return new Promise((resolve, reject) => {
@@ -59,11 +59,15 @@ export const cropImage = async ({
   return croppedImageUrl;
 };
 
-export const uploadImage = (file: File): Promise<ProgressEvent<FileReader>> => {
+export const uploadImage = async (file: File): Promise<string> => {
   return new Promise((resolve, reject) => {
     const fileReader = new FileReader();
 
-    fileReader.onload = (event) => resolve(event);
+    fileReader.onload = () => {
+      if (fileReader?.result) {
+        resolve(fileReader.result as string);
+      }
+    };
     fileReader.onerror = reject;
     fileReader.readAsDataURL(file);
   });

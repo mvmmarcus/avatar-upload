@@ -7,13 +7,11 @@ type AvatarProps = {
   urlImg?: string;
   scale?: number;
   hasError?: boolean;
-  avatarRef?: React.MutableRefObject<HTMLImageElement | null> | null;
 };
 
 const Avatar = ({
   urlImg,
   scale = 1,
-  avatarRef = null,
   isCropping = false,
   hasError = false,
 }: AvatarProps) => {
@@ -22,7 +20,6 @@ const Avatar = ({
       <AvatarImg
         hasError={hasError}
         isCropping={isCropping}
-        ref={avatarRef}
         scale={scale}
         src={urlImg}
         alt="avatar image"

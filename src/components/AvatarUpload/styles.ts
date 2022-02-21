@@ -13,7 +13,7 @@ const wrapperModifiers = {
 };
 
 export const Wrapper = styled.div<WrapperProps>`
-  ${({ theme, isDraggable = false, isDragOver = false }) => css`
+  ${({ theme, isDraggable, isDragOver }) => css`
     width: 100%;
     display: flex;
     max-width: 55.3rem;
