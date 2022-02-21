@@ -12,7 +12,7 @@ import {
   TitleIcon,
 } from "./styles";
 
-type DropZoneProps = {
+export type DropZoneProps = {
   avatarUrl?: string | ArrayBuffer | null;
   errorMessage?: string;
   isCropping?: boolean;
